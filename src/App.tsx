@@ -4,6 +4,7 @@ import LevelSelection from './components/LevelSelection';
 import GameLevel from './components/GameLevel';
 import Certificate from './components/Certificate';
 import LearningMenu from './components/LearningMenu';
+import AssessmentMenu from './components/AssessmentMenu';
 import { User, GameState } from './types';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const [showCertificate, setShowCertificate] = useState(false);
   const [showLevelSelection, setShowLevelSelection] = useState(false);
   const [showLearningMenu, setShowLearningMenu] = useState(false);
+  const [showAssessmentMenu, setShowAssessmentMenu] = useState(false);
 
   const handleUserSetup = (userData: User) => {
     setUser(userData);
@@ -59,10 +61,22 @@ function App() {
   const handleShowLearningMenu = () => {
     setShowLearningMenu(true);
     setShowLevelSelection(false);
+    setShowAssessmentMenu(false);
   };
 
   const handleBackFromLearningMenu = () => {
     setShowLearningMenu(false);
+    setShowLevelSelection(true);
+  };
+
+  const handleShowAssessmentMenu = () => {
+    setShowAssessmentMenu(true);
+    setShowLevelSelection(false);
+    setShowLearningMenu(false);
+  };
+
+  const handleBackFromAssessmentMenu = () => {
+    setShowAssessmentMenu(false);
     setShowLevelSelection(true);
   };
 
@@ -78,7 +92,18 @@ function App() {
     setShowCertificate(false);
     setShowLevelSelection(false);
     setShowLearningMenu(false);
+    setShowAssessmentMenu(false);
   };
+
+  if (showAssessmentMenu && user) {
+    return (
+      <AssessmentMenu 
+        user={user}
+        onBack={handleBackFromAssessmentMenu}
+        onShowLearningMenu={handleShowLearningMenu}
+      />
+    );
+  }
 
   if (showLearningMenu) {
     return <LearningMenu onBack={handleBackFromLearningMenu} />;
@@ -101,6 +126,7 @@ function App() {
         gameState={gameState}
         onLevelSelect={handleLevelSelect}
         onShowLearningMenu={handleShowLearningMenu}
+        onShowAssessmentMenu={handleShowAssessmentMenu}
         onRestart={handleRestart}
       />
     );

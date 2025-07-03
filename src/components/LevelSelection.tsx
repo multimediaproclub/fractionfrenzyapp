@@ -1,12 +1,13 @@
 import React from 'react';
 import { User, GameState } from '../types';
-import { Plus, Minus, X, Divide, Trophy, Star, Lock, CheckCircle, RotateCcw, BookOpen } from 'lucide-react';
+import { Plus, Minus, X, Divide, Trophy, Star, Lock, CheckCircle, RotateCcw, BookOpen, ClipboardList } from 'lucide-react';
 
 interface LevelSelectionProps {
   user: User;
   gameState: GameState;
   onLevelSelect: (level: number) => void;
   onShowLearningMenu: () => void;
+  onShowAssessmentMenu: () => void;
   onRestart: () => void;
 }
 
@@ -15,6 +16,7 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
   gameState,
   onLevelSelect,
   onShowLearningMenu,
+  onShowAssessmentMenu,
   onRestart
 }) => {
   const levels = [
@@ -91,6 +93,14 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
               </div>
               
               <div className="flex space-x-2">
+                <button
+                  onClick={onShowAssessmentMenu}
+                  className="flex items-center space-x-2 bg-green-600/50 hover:bg-green-600/70 text-white px-4 py-2 rounded-xl transition-all duration-200"
+                >
+                  <ClipboardList className="w-4 h-4" />
+                  <span>Assess</span>
+                </button>
+                
                 <button
                   onClick={onShowLearningMenu}
                   className="flex items-center space-x-2 bg-blue-600/50 hover:bg-blue-600/70 text-white px-4 py-2 rounded-xl transition-all duration-200"
@@ -267,13 +277,23 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
           </div>
           
           <div className="mt-6 text-center">
-            <button
-              onClick={onShowLearningMenu}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 mx-auto"
-            >
-              <BookOpen className="w-5 h-5" />
-              <span>Study Before Playing</span>
-            </button>
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={onShowAssessmentMenu}
+                className="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2"
+              >
+                <ClipboardList className="w-5 h-5" />
+                <span>Take Assessment</span>
+              </button>
+              
+              <button
+                onClick={onShowLearningMenu}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2"
+              >
+                <BookOpen className="w-5 h-5" />
+                <span>Study Materials</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
