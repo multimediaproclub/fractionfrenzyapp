@@ -35,10 +35,10 @@ const GameLevel: React.FC<GameLevelProps> = ({
   ];
 
   const levelDescriptions = [
-    'Master adding fractions with different denominators',
-    'Conquer subtracting fractions like a pro',
-    'Multiply fractions with confidence',
-    'Divide fractions and become unstoppable'
+    'Master similar fractions, dissimilar fractions, and mixed numbers',
+    'Conquer similar fractions, dissimilar fractions, and mixed numbers',
+    'Multiply proper & improper fractions, whole & mixed numbers',
+    'Divide proper & improper fractions, whole & mixed numbers'
   ];
 
   useEffect(() => {
@@ -122,6 +122,7 @@ const GameLevel: React.FC<GameLevelProps> = ({
 
   if (isLevelComplete) {
     const isLastLevel = gameState.currentLevel === 4;
+    const accuracy = Math.round((levelScore / questions.length) * 100);
     
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
@@ -139,11 +140,18 @@ const GameLevel: React.FC<GameLevelProps> = ({
               {levelScore}/{questions.length}
             </div>
             <div className="text-purple-200">
-              Correct Answers
+              Correct Answers ({accuracy}% accuracy)
             </div>
             <div className="text-sm text-purple-300 mt-2">
               Score: +{levelScore} points
             </div>
+          </div>
+
+          <div className="bg-white/5 rounded-xl p-4 mb-6">
+            <h3 className="text-white font-semibold mb-2">Level Summary</h3>
+            <p className="text-purple-200 text-sm">
+              You've mastered {levelNames[gameState.currentLevel - 1].toLowerCase()} including various fraction types and operations!
+            </p>
           </div>
 
           <div className="flex space-x-4">
@@ -201,7 +209,7 @@ const GameLevel: React.FC<GameLevelProps> = ({
               </div>
             </div>
             
-            <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
+            <div className="grid grid-cols-5 md:grid-cols-9 gap-2">
               {questions.map((_, index) => (
                 <button
                   key={index}

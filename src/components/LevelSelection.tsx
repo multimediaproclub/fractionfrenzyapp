@@ -19,34 +19,38 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
     {
       id: 1,
       name: 'Fraction Addition',
-      description: 'Master adding fractions with different denominators',
+      description: 'Similar fractions, dissimilar fractions, and mixed numbers',
       icon: Plus,
       color: 'from-blue-500 to-purple-600',
-      difficulty: 'Beginner'
+      difficulty: 'Beginner',
+      topics: ['Similar Fractions', 'Dissimilar Fractions', 'Mixed Numbers']
     },
     {
       id: 2,
       name: 'Fraction Subtraction',
-      description: 'Conquer subtracting fractions like a pro',
+      description: 'Similar fractions, dissimilar fractions, and mixed numbers',
       icon: Minus,
       color: 'from-green-500 to-blue-500',
-      difficulty: 'Intermediate'
+      difficulty: 'Intermediate',
+      topics: ['Similar Fractions', 'Dissimilar Fractions', 'Mixed Numbers']
     },
     {
       id: 3,
       name: 'Fraction Multiplication',
-      description: 'Multiply fractions with confidence',
+      description: 'Proper & improper fractions, whole numbers & mixed numbers',
       icon: X,
       color: 'from-orange-500 to-red-500',
-      difficulty: 'Advanced'
+      difficulty: 'Advanced',
+      topics: ['Proper & Improper Fractions', 'Whole & Mixed Numbers']
     },
     {
       id: 4,
       name: 'Fraction Division',
-      description: 'Divide fractions and become unstoppable',
+      description: 'Proper & improper fractions, whole numbers & mixed numbers',
       icon: Divide,
       color: 'from-purple-500 to-pink-500',
-      difficulty: 'Expert'
+      difficulty: 'Expert',
+      topics: ['Proper & Improper Fractions', 'Whole & Mixed Numbers']
     }
   ];
 
@@ -98,10 +102,10 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
         {/* Level Selection */}
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-white mb-4">Choose Your Challenge</h2>
-          <p className="text-purple-200 text-lg">Select a level to test your fraction skills</p>
+          <p className="text-purple-200 text-lg">Master different types of fraction operations</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {levels.map((level) => {
             const IconComponent = level.icon;
             const unlocked = isLevelUnlocked(level.id);
@@ -149,13 +153,24 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
                     </span>
                   </div>
                   <h4 className="text-lg font-semibold text-purple-200 mb-2">{level.name}</h4>
-                  <p className="text-purple-300 text-sm">{level.description}</p>
+                  <p className="text-purple-300 text-sm mb-3">{level.description}</p>
+                  
+                  {/* Topics covered */}
+                  <div className="space-y-1">
+                    <p className="text-purple-200 text-xs font-medium">Topics covered:</p>
+                    {level.topics.map((topic, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                        <span className="text-purple-300 text-xs">{topic}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Level Stats */}
                 <div className="flex justify-between items-center text-sm">
                   <div className="text-purple-300">
-                    10 Questions
+                    9 Questions
                   </div>
                   <div className="text-purple-300">
                     {unlocked ? (completed ? 'Completed ✓' : 'Ready to play') : 'Locked'}
@@ -196,6 +211,47 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
             <p className="text-purple-200">
               {gameState.completedLevels.length} of 4 levels completed
             </p>
+          </div>
+        </div>
+
+        {/* Learning Objectives */}
+        <div className="mt-8 bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20">
+          <h3 className="text-xl font-bold text-white mb-4 text-center">What You'll Learn</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <h4 className="text-lg font-semibold text-purple-200">Addition & Subtraction</h4>
+              <ul className="space-y-2 text-purple-300 text-sm">
+                <li className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <span>Working with fractions that have the same denominator</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <span>Finding common denominators for different fractions</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <span>Converting between mixed numbers and improper fractions</span>
+                </li>
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <h4 className="text-lg font-semibold text-purple-200">Multiplication & Division</h4>
+              <ul className="space-y-2 text-purple-300 text-sm">
+                <li className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                  <span>Multiplying proper and improper fractions</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                  <span>Working with whole numbers and mixed numbers</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                  <span>Understanding reciprocals and division by fractions</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
