@@ -209,7 +209,7 @@ const GameLevel: React.FC<GameLevelProps> = ({
               </div>
             </div>
             
-            <div className="grid grid-cols-5 md:grid-cols-9 gap-2">
+            <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
               {questions.map((_, index) => (
                 <button
                   key={index}

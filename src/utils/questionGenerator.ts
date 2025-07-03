@@ -98,11 +98,11 @@ const generateSimilarFractionAddition = (id: number): Question => {
 
 const generateDissimilarFractionAddition = (id: number): Question => {
   const frac1 = properFractions[Math.floor(Math.random() * properFractions.length)];
-  const frac2 = properFractions[Math.floor(Math.random() * properFractions.length)];
+  let frac2 = properFractions[Math.floor(Math.random() * properFractions.length)];
   
   // Ensure different denominators
   while (frac1.den === frac2.den) {
-    const frac2 = properFractions[Math.floor(Math.random() * properFractions.length)];
+    frac2 = properFractions[Math.floor(Math.random() * properFractions.length)];
   }
   
   const commonDen = lcm(frac1.den, frac2.den);
@@ -471,39 +471,49 @@ const generateWholeNumberMixedDivision = (id: number): Question => {
 // Main question generation function
 export const generateQuestions = (level: number): Question[] => {
   const questions: Question[] = [];
-  const questionsPerType = 3; // 3 questions per sub-type, total 9 per level
   
-  for (let i = 0; i < questionsPerType; i++) {
-    let question1: Question, question2: Question, question3: Question;
+  // Generate 10 questions per level with balanced distribution
+  for (let i = 0; i < 10; i++) {
+    let question: Question;
     
     switch (level) {
-      case 1: // Addition
-        question1 = generateSimilarFractionAddition(i * 3 + 1);
-        question2 = generateDissimilarFractionAddition(i * 3 + 2);
-        question3 = generateMixedNumberAddition(i * 3 + 3);
+      case 1: // Addition - 4 similar, 3 dissimilar, 3 mixed
+        if (i < 4) {
+          question = generateSimilarFractionAddition(i + 1);
+        } else if (i < 7) {
+          question = generateDissimilarFractionAddition(i + 1);
+        } else {
+          question = generateMixedNumberAddition(i + 1);
+        }
         break;
-      case 2: // Subtraction
-        question1 = generateSimilarFractionSubtraction(i * 3 + 1);
-        question2 = generateDissimilarFractionSubtraction(i * 3 + 2);
-        question3 = generateMixedNumberSubtraction(i * 3 + 3);
+      case 2: // Subtraction - 4 similar, 3 dissimilar, 3 mixed
+        if (i < 4) {
+          question = generateSimilarFractionSubtraction(i + 1);
+        } else if (i < 7) {
+          question = generateDissimilarFractionSubtraction(i + 1);
+        } else {
+          question = generateMixedNumberSubtraction(i + 1);
+        }
         break;
-      case 3: // Multiplication
-        question1 = generateProperImproperMultiplication(i * 3 + 1);
-        question2 = generateWholeNumberMixedMultiplication(i * 3 + 2);
-        question3 = generateProperImproperMultiplication(i * 3 + 3);
+      case 3: // Multiplication - 6 proper/improper, 4 whole/mixed
+        if (i < 6) {
+          question = generateProperImproperMultiplication(i + 1);
+        } else {
+          question = generateWholeNumberMixedMultiplication(i + 1);
+        }
         break;
-      case 4: // Division
-        question1 = generateProperImproperDivision(i * 3 + 1);
-        question2 = generateWholeNumberMixedDivision(i * 3 + 2);
-        question3 = generateProperImproperDivision(i * 3 + 3);
+      case 4: // Division - 6 proper/improper, 4 whole/mixed
+        if (i < 6) {
+          question = generateProperImproperDivision(i + 1);
+        } else {
+          question = generateWholeNumberMixedDivision(i + 1);
+        }
         break;
       default:
-        question1 = generateSimilarFractionAddition(i * 3 + 1);
-        question2 = generateDissimilarFractionAddition(i * 3 + 2);
-        question3 = generateMixedNumberAddition(i * 3 + 3);
+        question = generateSimilarFractionAddition(i + 1);
     }
     
-    questions.push(question1, question2, question3);
+    questions.push(question);
   }
   
   // Shuffle questions to mix the types

@@ -170,7 +170,7 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
                 {/* Level Stats */}
                 <div className="flex justify-between items-center text-sm">
                   <div className="text-purple-300">
-                    9 Questions
+                    10 Questions
                   </div>
                   <div className="text-purple-300">
                     {unlocked ? (completed ? 'Completed ✓' : 'Ready to play') : 'Locked'}
