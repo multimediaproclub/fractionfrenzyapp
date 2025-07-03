@@ -1,11 +1,12 @@
 import React from 'react';
 import { User, GameState } from '../types';
-import { Plus, Minus, X, Divide, Trophy, Star, Lock, CheckCircle, RotateCcw } from 'lucide-react';
+import { Plus, Minus, X, Divide, Trophy, Star, Lock, CheckCircle, RotateCcw, BookOpen } from 'lucide-react';
 
 interface LevelSelectionProps {
   user: User;
   gameState: GameState;
   onLevelSelect: (level: number) => void;
+  onShowLearningMenu: () => void;
   onRestart: () => void;
 }
 
@@ -13,6 +14,7 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
   user,
   gameState,
   onLevelSelect,
+  onShowLearningMenu,
   onRestart
 }) => {
   const levels = [
@@ -88,13 +90,23 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
                 <div className="text-purple-300 text-sm">Total Score</div>
               </div>
               
-              <button
-                onClick={onRestart}
-                className="flex items-center space-x-2 bg-gray-600/50 hover:bg-gray-600/70 text-white px-4 py-2 rounded-xl transition-all duration-200"
-              >
-                <RotateCcw className="w-4 h-4" />
-                <span>Restart</span>
-              </button>
+              <div className="flex space-x-2">
+                <button
+                  onClick={onShowLearningMenu}
+                  className="flex items-center space-x-2 bg-blue-600/50 hover:bg-blue-600/70 text-white px-4 py-2 rounded-xl transition-all duration-200"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>Learn</span>
+                </button>
+                
+                <button
+                  onClick={onRestart}
+                  className="flex items-center space-x-2 bg-gray-600/50 hover:bg-gray-600/70 text-white px-4 py-2 rounded-xl transition-all duration-200"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  <span>Restart</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -252,6 +264,16 @@ const LevelSelection: React.FC<LevelSelectionProps> = ({
                 </li>
               </ul>
             </div>
+          </div>
+          
+          <div className="mt-6 text-center">
+            <button
+              onClick={onShowLearningMenu}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 mx-auto"
+            >
+              <BookOpen className="w-5 h-5" />
+              <span>Study Before Playing</span>
+            </button>
           </div>
         </div>
       </div>

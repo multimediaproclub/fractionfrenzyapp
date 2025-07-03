@@ -3,6 +3,7 @@ import Dashboard from './components/Dashboard';
 import LevelSelection from './components/LevelSelection';
 import GameLevel from './components/GameLevel';
 import Certificate from './components/Certificate';
+import LearningMenu from './components/LearningMenu';
 import { User, GameState } from './types';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   });
   const [showCertificate, setShowCertificate] = useState(false);
   const [showLevelSelection, setShowLevelSelection] = useState(false);
+  const [showLearningMenu, setShowLearningMenu] = useState(false);
 
   const handleUserSetup = (userData: User) => {
     setUser(userData);
@@ -54,6 +56,16 @@ function App() {
     setShowLevelSelection(true);
   };
 
+  const handleShowLearningMenu = () => {
+    setShowLearningMenu(true);
+    setShowLevelSelection(false);
+  };
+
+  const handleBackFromLearningMenu = () => {
+    setShowLearningMenu(false);
+    setShowLevelSelection(true);
+  };
+
   const handleRestart = () => {
     setUser(null);
     setGameState({
@@ -65,7 +77,12 @@ function App() {
     });
     setShowCertificate(false);
     setShowLevelSelection(false);
+    setShowLearningMenu(false);
   };
+
+  if (showLearningMenu) {
+    return <LearningMenu onBack={handleBackFromLearningMenu} />;
+  }
 
   if (showCertificate && user) {
     return (
@@ -83,6 +100,7 @@ function App() {
         user={user}
         gameState={gameState}
         onLevelSelect={handleLevelSelect}
+        onShowLearningMenu={handleShowLearningMenu}
         onRestart={handleRestart}
       />
     );
